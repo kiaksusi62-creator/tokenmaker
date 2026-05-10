@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Builder Platform - Das Krypto-Aufbau Spiel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>🚀 Crypto Builder Platform</h1>
+                <p>Baue dein Krypto-Imperium auf!</p>
+            </div>
+            <div class="user-stats">
+                <div class="stat-box">
+                    <label>💰 Balance:</label>
+                    <span id="balance">$10,000.00</span>
+                </div>
+                <div class="stat-box">
+                    <label>📈 Portfolio-Wert:</label>
+                    <span id="portfolio-value">$0.00</span>
+                </div>
+                <div class="stat-box">
+                    <label>⏰ Tag:</label>
+                    <span id="day-counter">1</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar Navigation -->
+            <nav class="sidebar">
+                <button class="nav-btn active" data-section="dashboard">📊 Dashboard</button>
+                <button class="nav-btn" data-section="builder">🔨 Token Builder</button>
+                <button class="nav-btn" data-section="market">📈 Markt</button>
+                <button class="nav-btn" data-section="portfolio">💼 Portfolio</button>
+                <button class="nav-btn" data-section="achievements">🏆 Erfolge</button>
+                <button class="nav-btn" data-section="settings">⚙️ Einstellungen</button>
+            </nav>
+
+            <!-- Content Sections -->
+            <div class="content-area">
+
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="section active">
+                    <h2>📊 Dashboard</h2>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3>📰 Nachrichten</h3>
+                            <div id="news-feed" class="news-feed">
+                                <p class="news-item">Willkommen in der Crypto Builder Platform!</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>📊 Markttrends</h3>
+                            <div id="market-trends" class="trends">
+                                <p>Laden...</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>🎯 Ziele</h3>
+                            <div id="goals" class="goals-list">
+                                <div class="goal">
+                                    <input type="checkbox"> Erstes Token erstellen
+                                </div>
+                                <div class="goal">
+                                    <input type="checkbox"> 5 verschiedene Token besitzen
+                                </div>
+                                <div class="goal">
+                                    <input type="checkbox"> $100.000 Portfolio erreichen
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>⚡ Schnellaktionen</h3>
+                            <button class="action-btn" onclick="gameState.skipDay()">📅 Tag überspringen (+1h Gaming)</button>
+                            <button class="action-btn" onclick="gameState.addBonus()">💵 Bonus erhalten ($1000)</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Token Builder Section -->
+                <section id="builder" class="section">
+                    <h2>🔨 Token Builder</h2>
+                    <div class="builder-container">
+                        <div class="card builder-form">
+                            <h3>Erstelle ein neues Token</h3>
+                            <form id="token-form">
+                                <div class="form-group">
+                                    <label for="token-name">Token Name:</label>
+                                    <input type="text" id="token-name" placeholder="z.B. MoonCoin" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="token-symbol">Symbol:</label>
+                                    <input type="text" id="token-symbol" placeholder="z.B. MOON" maxlength="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="token-supply">Initiale Supply:</label>
+                                    <input type="number" id="token-supply" min="1000" max="1000000" value="10000" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="token-price">Startpreis ($):</label>
+                                    <input type="number" id="token-price" min="0.01" max="100" step="0.01" value="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="token-category">Kategorie:</label>
+                                    <select id="token-category" required>
+                                        <option value="tech">Tech Innovation</option>
+                                        <option value="defi">DeFi</option>
+                                        <option value="gaming">Gaming</option>
+                                        <option value="nft">NFT</option>
+                                        <option value="utility">Utility</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kosten: <span class="cost">$500</span></label>
+                                </div>
+                                <button type="submit" class="btn-primary">Token Erstellen 🚀</button>
+                            </form>
+                        </div>
+                        <div class="card">
+                            <h3>🎨 Token Vorschau</h3>
+                            <div id="token-preview" class="token-preview">
+                                <div class="preview-placeholder">Dein Token wird hier angezeigt</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>📋 Deine Tokens</h3>
+                        <div id="my-tokens" class="tokens-grid">
+                            <p>Erstelle ein Token, um hier zu starten!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Market Section -->
+                <section id="market" class="section">
+                    <h2>📈 Marktplatz</h2>
+                    <div class="market-filters">
+                        <input type="text" id="market-search" placeholder="Token suchen...">
+                        <select id="market-sort">
+                            <option value="trending">Trending</option>
+                            <option value="price-high">Höchster Preis</option>
+                            <option value="price-low">Niedrigster Preis</option>
+                            <option value="volume">Volumen</option>
+                        </select>
+                    </div>
+                    <div id="market-tokens" class="market-grid">
+                        <p>Laden...</p>
+                    </div>
+                </section>
+
+                <!-- Portfolio Section -->
+                <section id="portfolio" class="section">
+                    <h2>💼 Portfolio</h2>
+                    <div class="portfolio-stats">
+                        <div class="stat-card">
+                            <h4>Gesamtwert</h4>
+                            <p class="big-number" id="total-portfolio">$0.00</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Gewinn/Verlust</h4>
+                            <p class="big-number" id="portfolio-change">+$0.00</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Anzahl Tokens</h4>
+                            <p class="big-number" id="token-count">0</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>📊 Deine Bestände</h3>
+                        <div id="portfolio-holdings" class="holdings-table">
+                            <p>Keine Tokens im Portfolio</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Achievements Section -->
+                <section id="achievements" class="section">
+                    <h2>🏆 Erfolge</h2>
+                    <div class="achievements-grid">
+                        <div class="achievement" data-achievement="first-token">
+                            <div class="achievement-icon">🎯</div>
+                            <h4>Erste Schritte</h4>
+                            <p>Erstelle dein erstes Token</p>
+                            <div class="achievement-status">Gesperrt</div>
+                        </div>
+                        <div class="achievement" data-achievement="millionaire">
+                            <div class="achievement-icon">💎</div>
+                            <h4>Millionär</h4>
+                            <p>Erreiche $1.000.000 Portfolio</p>
+                            <div class="achievement-status">Gesperrt</div>
+                        </div>
+                        <div class="achievement" data-achievement="trader">
+                            <div class="achievement-icon">📈</div>
+                            <h4>Professioneller Trader</h4>
+                            <p>Mache 50 Trades</p>
+                            <div class="achievement-status">Gesperrt</div>
+                        </div>
+                        <div class="achievement" data-achievement="diversified">
+                            <div class="achievement-icon">🎨</div>
+                            <h4>Diversifiziert</h4>
+                            <p>Besitze Tokens aus 5 verschiedenen Kategorien</p>
+                            <div class="achievement-status">Gesperrt</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="section">
+                    <h2>⚙️ Einstellungen</h2>
+                    <div class="card">
+                        <h3>Spieleinstellungen</h3>
+                        <div class="settings-group">
+                            <label>
+                                <input type="checkbox" id="sound-toggle" checked> Soundeffekte aktivieren
+                            </label>
+                            <label>
+                                <input type="checkbox" id="notifications-toggle" checked> Benachrichtigungen aktivieren
+                            </label>
+                            <label>
+                                <input type="checkbox" id="darkmode-toggle"> Dunkelmodus
+                            </label>
+                        </div>
+                        <h3 style="margin-top: 30px;">Spielstand</h3>
+                        <button class="btn-secondary" onclick="gameState.saveGame()">💾 Speichern</button>
+                        <button class="btn-secondary" onclick="gameState.loadGame()">📂 Laden</button>
+                        <button class="btn-danger" onclick="gameState.resetGame()">🔄 Zurücksetzen</button>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal für Transaktionen -->
+    <div id="transaction-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="modal-title">Token kaufen</h3>
+            <div id="modal-body">
+                <!-- Wird dynamisch gefüllt -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notifications-container" class="notifications"></div>
+
+    <script src="game-state.js"></script>
+    <script src="game-ui.js"></script>
+    <script src="market-simulation.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
